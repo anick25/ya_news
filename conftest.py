@@ -6,17 +6,15 @@ from django.utils import timezone
 
 from news.models import News, Comment
 
+
 @pytest.fixture
-# Используем встроенную фикстуру для модели пользователей django_user_model.
 def author(django_user_model):
     return django_user_model.objects.create(username='Автор')
 
 
-#
-#
 @pytest.fixture
-def author_client(author, client):  # Вызываем фикстуру автора и клиента.
-    client.force_login(author)  # Логиним автора в клиенте.
+def author_client(author, client):
+    client.force_login(author)
     return client
 
 
@@ -31,12 +29,13 @@ def news():
 
 @pytest.fixture
 def comment(author, news):
-    comment = Comment.objects.create(  # Создаём объект заметки.
+    comment = Comment.objects.create(
         text='Текст комментария',
         news=news,
         author=author,
     )
     return comment
+
 
 @pytest.fixture
 def many_news():
@@ -51,6 +50,7 @@ def many_news():
     ]
     News.objects.bulk_create(all_news)
     return all_news
+
 
 @pytest.fixture
 def many_comments(news, author):

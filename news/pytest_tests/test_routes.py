@@ -39,7 +39,6 @@ def test_delete_edit_comment_author(comment, author_client, name):
     assert response.status_code == HTTPStatus.OK
 
 
-
 @pytest.mark.parametrize(
     'name',
     ('news:edit', 'news:delete')
@@ -60,5 +59,3 @@ def test_edit_delete_pages_auth_user_not_author(admin_client, name, comment):
     url = reverse(name, args=(comment.id,))
     response = admin_client.get(url)
     assert response.status_code == HTTPStatus.NOT_FOUND
-
-
